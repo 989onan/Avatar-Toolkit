@@ -1,0 +1,27 @@
+# blender_manifest.toml
+
+schema_version = "1.0.0"
+
+id = "avatar_toolkit"
+version = "0.5.2"
+name = "Avatar Toolkit"
+tagline = "A modern tool for importing and optimizing models for VRChat, Resonite, and other similar games."
+maintainer = "Team NekoNeo"
+type = "add-on"
+
+blender_version_min = "5.1.0"
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+wheels = [
+  "./wheels/lz4-4.4.5-cp311-cp311-macosx_11_0_arm64.whl",
+  "./wheels/lz4-4.4.5-cp311-cp311-macosx_10_9_x86_64.whl",
+  "./wheels/lz4-4.4.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+  "./wheels/lz4-4.4.5-cp311-cp311-win_amd64.whl"
+]
+
+[permissions]
+network = "For the auto updater to work, you need to allow network access"
+files = "Import/Export files, saving atlas images, saving preferences"

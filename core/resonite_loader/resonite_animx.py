@@ -477,8 +477,11 @@ class AnimX():
                 case 0:
                     pass
                 case 1:
-                    from lz4.frame import decompress #why do you have to be a wheel? - @989onan
-                    data =  BytesIO(decompress(data.read()))
+                    pass
+                 #why do you have to be a wheel? - @989onan
+                 #TODO: Fix the wheels and unfuck this shit... - @989onan
+                    #from lz4.frame import decompress
+                    #data =  BytesIO(decompress(data.read()))
                 case 2:
                     
                     filters = [

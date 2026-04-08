@@ -1,5 +1,4 @@
 # Avatar Toolkit
-We are aware the wiki is down and are working on a new one, please don't report this.
 
 ## Avatar Toolkit is in Alpha, There will be issues, please ensure you report them!. Or else they never ever get fixed.
 #### Avatar Toolkit is in Alpha and will contain issues, please ensure you report them!
@@ -17,9 +16,12 @@ The addon is built with a focus on user experience, reducing the number of steps
 
 ### Community:
 See: https://discord.gg/fUA2ePVVkW 
+we are currently looking for Volunteer: programmers, moderators, and community feedback/issue gatherers.
+As of the time of writing this, @989onan is the one person trying to hold this thing together.
 
 ### Support us:
-If you like what we do and want to help support the development of ATK's future then we are currently looking 
+If you like what we do and want to help support the development of ATK's future then manpower is best thing. Suggest changes and try to be those changes
+Power to open source and the people!!!!
 
 ## Requirements
 

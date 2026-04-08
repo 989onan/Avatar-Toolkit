@@ -15,7 +15,7 @@ from .addon_preferences import get_preference, get_current_version, save_prefere
 from ..ui.main_panel import AvatarToolKit_PT_AvatarToolkitPanel, CATEGORY_NAME
 from typing import Dict, List, Tuple, Optional, Set, Any
 
-GITHUB_REPO = "teamneoneko/Avatar-Toolkit"
+from ..globals import GITHUB_REPO 
 
 # Define which version series this installation can update to
 # For example: ["0.1"] means only look for 0.1.x updates

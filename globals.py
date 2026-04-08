@@ -1,0 +1,1 @@
+GITHUB_REPO = "989onan/Avatar-Toolkit"

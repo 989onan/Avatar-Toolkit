@@ -1,6 +1,6 @@
 import bpy
 from bpy.app.handlers import persistent
-from globals import GITHUB_REPO
+from .atk_globals import GITHUB_REPO
 
 
 modules = None

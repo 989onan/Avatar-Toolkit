@@ -263,6 +263,13 @@ def merge_armatures(
             #then remove so it doesn't clash when merged.
             merge_armature_data.edit_bones.remove(merge_armature_data.edit_bones[bone_name])
 
+    # merge bones with exact names:
+    for bone in base_armature.data.bones:
+        if bone.name in [bone.name for bone in merge_armature_data.bones]:
+            for child_bone in merge_armature_data.edit_bones[bone.name].children:
+                original_parents[child_bone.name] = bone.name
+            merge_armature_data.edit_bones.remove(merge_armature_data.edit_bones[bone.name])
+
     # Return to object mode
     bpy.ops.object.mode_set(mode='OBJECT')
 

@@ -399,19 +399,17 @@ def fast_uv_fix(obj: Object) -> None:
     """Fast UV coordinate fixing for joined meshes"""
     if not obj or not obj.data or not obj.data.uv_layers:
         return
-        
+
+
+
     current_mode = bpy.context.mode
+    bpy.ops.object.mode_set(mode="OBJECT")
+
+    [layer for layer in obj.data.uv_layers if layer.name == "UVMap"].name = "Stop_Conflicting_Idiote"
     
-    if current_mode != 'EDIT_MESH':
-        bpy.ops.object.mode_set(mode='EDIT')
-        
-    bpy.ops.mesh.select_all(action='SELECT')
+    [layer for layer in obj.data.uv_layers if layer.active_render == True][0].name = "UVMap"
     
-    # Process all UV layers at once
-    bpy.ops.uv.select_all(action='SELECT')
-    bpy.ops.uv.pack_islands(margin=0.001)
-    
-    if current_mode != 'EDIT_MESH':
+    if current_mode != 'OBJECT':
         bpy.ops.object.mode_set(mode=current_mode)
 
 def join_mesh_objects(context: Context, meshes: List[Object], progress: Optional[ProgressTracker] = None) -> Optional[Object]:

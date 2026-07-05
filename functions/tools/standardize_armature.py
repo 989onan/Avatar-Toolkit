@@ -57,7 +57,6 @@ class AvatarToolkit_OT_StandardizeArmature(Operator):
         
         original_mode: str = context.mode
         logger.debug(f"Original mode: {original_mode}")
-        print("jackass 1")
         bpy.ops.object.mode_set(mode='OBJECT')
         context.view_layer.objects.active = armature
         bpy.ops.object.mode_set(mode='POSE')

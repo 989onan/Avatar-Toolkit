@@ -57,8 +57,17 @@ class AvatarToolkit_OT_StandardizeArmature(Operator):
         
         original_mode: str = context.mode
         logger.debug(f"Original mode: {original_mode}")
+        print("jackass 1")
         bpy.ops.object.mode_set(mode='OBJECT')
         context.view_layer.objects.active = armature
+        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.pose.select_all(action="SELECT")
+        bpy.ops.pose.constraints_clear()
+        for bone in armature.pose.bones:
+            bone.lock_location = [False, False, False]
+            bone.lock_rotation = [False, False, False]
+            bone.lock_rotation_w = False
+            bone.lock_scale = [False,False,False]
         bpy.ops.object.mode_set(mode='EDIT')
         
         try:

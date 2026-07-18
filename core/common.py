@@ -192,12 +192,6 @@ def get_armature_list(self: Optional[Any] = None, context: Optional[Context] = N
     
     # Create a cache key based on armature objects in scene
     armature_objects = [obj for obj in context.scene.objects if obj.type == 'ARMATURE']
-    cache_key = tuple((obj.name, obj.as_pointer()) for obj in armature_objects)
-    
-    # Check if we have a cached result
-    if hasattr(get_armature_list, '_cache_key') and get_armature_list._cache_key == cache_key:
-        if hasattr(get_armature_list, '_cached_items'):
-            return get_armature_list._cached_items
     
     # Build the list
     armatures = []
@@ -206,16 +200,12 @@ def get_armature_list(self: Optional[Any] = None, context: Optional[Context] = N
         safe_id = f"ARM_{obj.as_pointer()}"
         # Use the name directly - Blender should handle Unicode in display names
         display_name = obj.name
-        armatures.append((safe_id, display_name, ""))
+        armatures.append((display_name, display_name, ""))
     
     if not armatures:
         result = [('NONE', t("Armature.validation.no_armature"), '')]
     else:
         result = armatures
-    
-    # Cache the result
-    get_armature_list._cache_key = cache_key
-    get_armature_list._cached_items = result
     
     return result
   

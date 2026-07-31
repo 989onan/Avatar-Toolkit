@@ -1,3 +1,6 @@
+from ctypes import alignment
+import string
+
 from bpy.types import UIList, Panel, UILayout, Object, Context, Material, Operator
 import bpy
 from math import sqrt
@@ -127,7 +130,10 @@ class AvatarToolKit_UL_MaterialTextureAtlasProperties(UIList):
                 return
 
             # Main material
-            row = layout.row()
+            colprime = layout.column()
+            row = colprime.row()
+            box = row.box()
+            row = box.row()
             row.prop(item.mat, "include_in_atlas", text="", 
                     icon='CHECKBOX_HLT' if item.mat.include_in_atlas else 'CHECKBOX_DEHLT',
                     emboss=False) 
@@ -138,52 +144,42 @@ class AvatarToolKit_UL_MaterialTextureAtlasProperties(UIList):
                     icon='DOWNARROW_HLT' if item.mat.material_expanded else 'RIGHTARROW',
                     emboss=False)
             
+            
+
+    
+            is_ready = self.is_material_ready(item.mat)
+            
+            if item.mat.include_in_atlas:
+                status_text = t("TextureAtlas.material_ready") if is_ready else t("TextureAtlas.material_not_ready")
+                status_icon = 'CHECKMARK' if is_ready else 'ERROR'
+            else:
+                status_text = t("TextureAtlas.material_not_included")
+                status_icon = 'INFO'
+            
+            row.label(text=status_text, icon=status_icon)
             row.label(text="", icon='MATERIAL')
             
             if item.mat.material_expanded:
-                box = layout.box()
-                col = box.column(align=True)
+                colprime.separator(factor=0.01)
+                row = colprime.row()
+                box = row.box()
                 
-                header_row = col.row()
-                header_row.alignment = 'CENTER'
-                header_row.label(text=t("TextureAtlas.texture_maps"), icon='IMAGE')
-                col.separator(factor=0.5)
-                self.draw_texture_row(col, item.mat, "texture_atlas_albedo", "IMAGE_RGB", t("TextureAtlas.albedo"))
-                self.draw_texture_row(col, item.mat, "texture_atlas_normal", "NORMALS_FACE", t("TextureAtlas.normal"))
-                self.draw_texture_row(col, item.mat, "texture_atlas_emission", "LIGHT", t("TextureAtlas.emission"))
-                self.draw_texture_row(col, item.mat, "texture_atlas_ambient_occlusion", "SHADING_SOLID", t("TextureAtlas.ambient_occlusion"))
-                self.draw_texture_row(col, item.mat, "texture_atlas_height", "IMAGE_ZDEPTH", t("TextureAtlas.height"))
-                self.draw_texture_row(col, item.mat, "texture_atlas_roughness", "MATERIAL", t("TextureAtlas.roughness"))
+                box.label(text=t("TextureAtlas.texture_maps"), icon='IMAGE')
+                box.separator(factor=0.5)
+                self.draw_texture_row(box, item.mat, "texture_atlas_albedo", "IMAGE_RGB", t("TextureAtlas.albedo"))
+                self.draw_texture_row(box, item.mat, "texture_atlas_normal", "NORMALS_FACE", t("TextureAtlas.normal"))
+                self.draw_texture_row(box, item.mat, "texture_atlas_emission", "LIGHT", t("TextureAtlas.emission"))
+                self.draw_texture_row(box, item.mat, "texture_atlas_ambient_occlusion", "SHADING_SOLID", t("TextureAtlas.ambient_occlusion"))
+                self.draw_texture_row(box, item.mat, "texture_atlas_height", "IMAGE_ZDEPTH", t("TextureAtlas.height"))
+                self.draw_texture_row(box, item.mat, "texture_atlas_roughness", "MATERIAL", t("TextureAtlas.roughness"))
                 
-                col.separator(factor=0.5)
                 
-                status_row = col.row()
-                status_row.alignment = 'CENTER'
-                is_ready = self.is_material_ready(item.mat)
-                
-                if item.mat.include_in_atlas:
-                    status_text = t("TextureAtlas.material_ready") if is_ready else t("TextureAtlas.material_not_ready")
-                    status_icon = 'CHECKMARK' if is_ready else 'ERROR'
-                else:
-                    status_text = t("TextureAtlas.material_not_included")
-                    status_icon = 'INFO'
-                
-                status_row.label(text=status_text, icon=status_icon)
 
-    def draw_texture_row(self, layout, material, prop_name, icon, label_text):
+    def draw_texture_row(self, layout: UILayout, material: Material, prop_name: str, icon: str, label_text: str):
         row = layout.row(align=True)
-        icon_row = row.row()
-        icon_row.scale_x = 0.5
-        icon_row.label(text="", icon=icon)
-        
+        row.label(text="", icon=icon)
         # Texture selector
         row.prop(material, prop_name, text=label_text)
-        status_row = row.row()
-        status_row.scale_x = 0.5
-        if getattr(material, prop_name):
-            status_row.label(text="", icon='CHECKMARK')
-        else:
-            status_row.label(text="", icon='X')
 
     def is_material_ready(self, material):
         return bool(material.texture_atlas_albedo or 

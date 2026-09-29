@@ -103,8 +103,8 @@ import_types: Dict[str, ImportMethod] = {
     ),
     "smd": lambda directory, files, filepath: eval("bpy."+SmdImporter.bl_idname+".(files=files, directory=directory, filepath=filepath)"),
     "dmx": lambda directory, files, filepath: eval("bpy."+SmdImporter.bl_idname+".(files=files, directory=directory, filepath=filepath)"),
-    "gltf": lambda directory, files, filepath: bpy.ops.import_scene.gltf(files=files, filepath=filepath),
-    "glb": lambda directory, files, filepath: bpy.ops.import_scene.gltf(files=files, filepath=filepath),
+    "gltf": lambda directory, files, filepath: bpy.ops.import_scene.gltf(files=files, directory=directory, filepath=filepath),
+    "glb": lambda directory, files, filepath: bpy.ops.import_scene.gltf(files=files, directory=directory, filepath=filepath),
     "qc": lambda directory, files, filepath: eval("bpy."+SmdImporter.bl_idname+".(files=files, directory=directory, filepath=filepath)"),
     "obj": lambda directory, files, filepath: bpy.ops.wm.obj_import(files=files, directory=directory, filepath=filepath),
     "dae": lambda directory, files, filepath: import_multi_files(

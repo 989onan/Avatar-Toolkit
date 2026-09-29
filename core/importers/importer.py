@@ -230,3 +230,6 @@ def import_pmx_file(filepath: str) -> None:
     except (AttributeError, TypeError, ValueError) as e:
         logger.error(f"Failed to import PMX file: {e}", exc_info=True)
         raise
+
+
+menu_option_importer = lambda self, context: self.layout.operator(AvatarToolKit_OT_Import.bl_idname, text=t("QuickAccess.import"), icon='IMPORT')

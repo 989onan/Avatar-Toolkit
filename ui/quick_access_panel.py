@@ -72,7 +72,8 @@ class AvatarToolKit_OT_ExportMenu(Operator):
     def execute(self, context: Context) -> Set[str]:
         bpy.context.window_manager.popup_menu(AvatarToolKit_MT_ExportMenu.draw)
         return {'FINISHED'}
-    
+
+menu_option_exporter = lambda self, context: self.layout.operator(AvatarToolKit_OT_ExportMenu.bl_idname, text=t("QuickAccess.export"), icon='EXPORT')
 class AvatarToolKit_PT_QuickAccessPanel(Panel):
     """Quick access panel for common Avatar Toolkit operations"""
     bl_label: str = t("QuickAccess.label")
@@ -270,13 +271,4 @@ class AvatarToolKit_PT_QuickAccessPanel(Panel):
                 ])
             else:
                 col.operator(AvatarToolkit_OT_StartPoseMode.bl_idname, icon='POSE_HLT')
-
-        # Import/Export Section
-        col = draw_section_header(layout, t("QuickAccess.import_export"), icon='IMPORT')
-        
-        # Import/Export Buttons
-        draw_operator_row(col, [
-            (AvatarToolKit_OT_Import.bl_idname, t("QuickAccess.import"), 'IMPORT'),
-            (AvatarToolKit_OT_ExportMenu.bl_idname, t("QuickAccess.export"), 'EXPORT')
-        ], scale_y=UIStyle.PRIMARY_BUTTON_SCALE)
 

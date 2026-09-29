@@ -2,7 +2,6 @@ import bpy
 from bpy.app.handlers import persistent
 from .atk_globals import GITHUB_REPO
 
-
 modules = None
 ordered_classes = None
 
@@ -47,6 +46,12 @@ def register():
     #this needs to be done last, or at least after whatever things this uses is imported - @989onan
     from .functions.tools.apply_shapekey_to_basis import add_to_menu
     bpy.types.MESH_MT_shape_key_context_menu.append(add_to_menu)
+
+    #add import and export options to those menus at import and export
+    from .core.importers.importer import menu_option_importer
+    from .ui.quick_access_panel import menu_option_exporter
+    bpy.types.TOPBAR_MT_file_import.append(menu_option_importer)
+    bpy.types.TOPBAR_MT_file_export.append(menu_option_exporter)
 
     print("Registration complete")
 

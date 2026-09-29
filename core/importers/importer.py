@@ -116,7 +116,7 @@ import_types: Dict[str, ImportMethod] = {
         )
     ),
     "3ds": lambda directory, files, filepath: bpy.ops.import_scene.max3ds(files=files, directory=directory, filepath=filepath),
-    "stl": lambda directory, files, filepath: bpy.ops.import_mesh.stl(files=files, directory=directory, filepath=filepath),
+    "stl": lambda directory, files, filepath: bpy.ops.wm.stl_import(files=files, directory=directory, filepath=filepath),
     "mtl": lambda directory, files, filepath: bpy.ops.wm.obj_import(files=files, directory=directory, filepath=filepath),
     "x3d": lambda directory, files, filepath: bpy.ops.import_scene.x3d(files=files, directory=directory, filepath=filepath),
     "wrl": lambda directory, files, filepath: bpy.ops.import_scene.x3d(files=files, directory=directory, filepath=filepath),
